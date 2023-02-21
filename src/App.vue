@@ -3,9 +3,7 @@
 
   <main>
     <section class="main">
-      <div class="container mx-auto">
-
-      </div>
+      <RouterView />
     </section>
   </main>
   <Footer />
@@ -13,6 +11,7 @@
 <script>
 import Footer from '../src/components/Footer/Footer.vue'
 import Header from '../src/components/Header/Header.vue'
+import { RouterView } from 'vue-router'
 export default {
     name:'App',
     data(){
@@ -21,7 +20,7 @@ export default {
       }
     },
     components:{
-      Header,
+      Header,   
       Footer
     },
     methods:{},
@@ -29,6 +28,8 @@ export default {
 
 }
 </script>
-<style lang="scss">
-  
+<style scoped>
+  main {
+    min-height: calc(100vh - 75px - 75px);
+  }
 </style>
