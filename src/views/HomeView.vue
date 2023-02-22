@@ -13,6 +13,7 @@
 import Input from '../ui/Input.vue';
 import UserView from './UserView.vue';
 import Button from '../ui/Button.vue';
+import {v4 as uuidv4 } from 'uuid'
 export default {
   components:{
     Input,
@@ -30,7 +31,7 @@ export default {
       e.preventDefault();
 
       const newUser = {
-        id:Date.now(),
+        id:uuidv4(),
         name: this.name,
         email: this.email
       }
