@@ -1,91 +1,112 @@
-<template lang="">
-    <div class="bg-white p-20 w-1/2 auto min-h-[300px] shadow-lg">
-        <p class=" text-green-700 text-center text-2xl uppercase font-semibold">Userlist</p>
-        <table class="list p-4 bg-green-100 table-auto w-full border-separate">
-            <thead class="p-5 bg-green-500 rounded-xl flex justify-between text-black w-full ">
-                <th>ID</th> <th>Name</th> <th>Email</th> <th>Edit</th> <th>Remove</th>
+<template>
+    <div class="bg-white pt-5  w-1/2 mx-auto min-h-[300px] shadow-lg px-10 container">
+
+        <h1 class="text-rgb(25, 235, 25)-700 text-center text-2xl uppercase font-semibold">User list</h1>
+
+        <table class="list  bg-rgb(25, 235, 25)-50 table-auto w-full border-separate border-spacing-2">
+
+            <thead class="p-5 bg-rgb(25, 235, 25)-300 rounded-xl w-full">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Remove</th>
+                </tr>
             </thead>
-            <h1 class="text-center" v-if="userList.length">USERLIST NOT EMPTY</h1>
+
+            <h1 class="text-center" v-if="!userList.length"> USER LIST EMPTY </h1>
+
             <span class="loader" v-if="isLoading"></span>
-            <ListItem  v-for="(item, index) in userList" :num="index" :item="item" :key="item.id" :removeUser="removeUser" />
+
+            <tbody class="w-full">
+                <ListItem v-if="!isLoading" v-for="(item, index) in userList" :key="item.id" :num="index" :item="item"
+                    :removeUser="removeUser" />
+            </tbody>
+
+
         </table>
+
     </div>
 </template>
 <script>
-import axios from '../service/axios'
-import ListItem from '../ui/ListItem.vue'
+import axios from "@/service/axios";
+import ListItem from "../ui/ListItem.vue";
 export default {
-    name:'UserView',
-    components:{
-        ListItem,
-    },
+    name: "UserView",
+    components: { ListItem },
     data() {
         return {
-            userList:[],
-            isLoading:true
-        }
+            userList: [],
+            isLoading: true,
+        };
     },
-    methods:{
-        async getAllUsers()  {
+    methods: {
+        async getAlluser() {
             try {
-                const user = await axios.get('/user');
-                console.log(user)
-                if(user.status == 200) {
+                const user = await axios.get("/user");
+                console.log(user);
+                if (user.status === 200) {
                     this.userList = user.data;
                     setTimeout(() => {
-                        this.isLoading = false
-                    },300)
+                        this.isLoading = false;
+                    }, 300)
                 }
-            } catch (error) {
-                console.log(error)
+            }
+            catch (e) {
+                console.log(e);
             }
         },
         removeUser(id) {
-            axios.delete(`/user/${id}`,{});
-        }       
+            axios.delete(`/user/${id}`, {})
+            location.reload();
+        }
     },
     mounted() {
-            this.getAllUsers()
+        this.getAlluser();
     },
     updated() {
-        this.removeUser()
+        console.log("updated")
     }
 }
 </script>
 <style scoped>
 .loader {
-  width: 8px;
-  height: 40px;
-  border-radius: 4px;
-  display: block;
-  margin: 20px auto;
-  position: relative;
-  background: currentColor;
-  color: green;
-  box-sizing: border-box;
-  animation: animloader 0.3s 0.3s linear infinite alternate;
+    position: relative;
+    width: 85px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgb(25, 235, 25) 50px, transparent 0),
+        linear-gradient(rgb(25, 235, 25) 50px, transparent 0),
+        linear-gradient(rgb(25, 235, 25) 50px, transparent 0),
+        linear-gradient(rgb(25, 235, 25) 50px, transparent 0),
+        linear-gradient(rgb(25, 235, 25) 50px, transparent 0),
+        linear-gradient(rgb(25, 235, 25) 50px, transparent 0);
+    background-position: 0px center, 15px center, 30px center, 45px center, 60px center, 75px center, 90px center;
+    animation: rikSpikeRoll 0.65s linear infinite alternate;
+    display: block;
 }
-
-.loader::after, .loader::before {
-  content: '';
-  width: 8px;
-  height: 40px;
-  border-radius: 4px;
-  background: currentColor;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 20px;
-  box-sizing: border-box;
-  animation: animloader 0.3s  0.45s  linear infinite alternate;
-}
-.loader::before {
-  left: -20px;
-  animation-delay: 0s;
-}
-
-@keyframes animloader {
-  0%   { height: 48px} 
-  100% { height: 4px}
+@keyframes rikSpikeRoll {
+    0% {
+        background-size: 10px 3px;
+    }
+    16% {
+        background-size: 10px 50px, 10px 3px, 10px 3px, 10px 3px, 10px 3px, 10px 3px
+    }
+    33% {
+        background-size: 10px 30px, 10px 50px, 10px 3px, 10px 3px, 10px 3px, 10px 3px
+    }
+    50% {
+        background-size: 10px 10px, 10px 30px, 10px 50px, 10px 3px, 10px 3px, 10px 3px
+    }
+    66% {
+        background-size: 10px 3px, 10px 10px, 10px 30px, 10px 50px, 10px 3px, 10px 3px
+    }
+    83% {
+        background-size: 10px 3px, 10px 3px, 10px 10px, 10px 30px, 10px 50px, 10px 3px
+    }
+    100% {
+        background-size: 10px 3px, 10px 3px, 10px 3px, 10px 10px, 10px 30px, 10px 50px
+    }
 }
 </style>
