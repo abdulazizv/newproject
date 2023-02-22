@@ -39,13 +39,19 @@ export default {
       }
       if(newUser.name.length === 0 || newUser.email.length === 0) {
         toast.error(`Please enter a new user name and email`,{
-          theme:'dark',
-          autoClose:1000,
+          theme:'light',
+          autoClose:4000,
           position:'top-left'
         })
       } else {
         axios.post('/user',newUser);
-        toast.success('User added successfully');
+        toast.success('User added successfully',{
+          autoClose:1000,
+          theme:'auto',
+          position:'bottom-right'
+        });
+        this.name = ""
+        this.email = ""
       }
       console.log(newUser)
     }
