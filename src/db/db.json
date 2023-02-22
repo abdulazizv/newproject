@@ -1,54 +1,19 @@
 {
   "user": [
     {
-      "id": 1,
-      "name": "John Doe",
-      "email": "John@doe.com"
+      "id": "bb7e155c-e514-46ac-8289-00a3cd8b74b7",
+      "name": "Rustam",
+      "email": "rustik@gmail.com"
     },
     {
-      "id": 2,
-      "name": "John Smith",
-      "email": "John@smith.com"
+      "id": "8509dc6a-f7aa-4fd4-8094-ab7f94eb1538",
+      "name": "Abdurahmon",
+      "email": "123Wxz@gmail.com"
     },
     {
-      "id": "ddd48a4f-8c60-4c04-a216-12003f9cf5e0",
-      "name": "admin",
-      "email": "admin@gmail.com"
-    },
-    {
-      "id": "7916d5ae-1c9e-4480-886a-b468a047f40a",
-      "name": "admin",
-      "email": "admin@gmail.com"
-    },
-    {
-      "id": "1ab62336-7230-4049-8560-ddd0cd800783",
-      "name": "admin",
-      "email": "admin@gmail.com"
-    },
-    {
-      "id": "36f2d172-0f43-4770-8eb8-4fd6394f1746",
-      "name": "admin",
-      "email": "admin@gmail.com"
-    },
-    {
-      "id": "453440f6-3895-4d69-8393-116bdff95e36",
-      "name": "admin",
-      "email": "admin@gmail.com"
-    },
-    {
-      "id": "fd82ed57-8423-4f68-9087-70aa5130f5eb",
-      "name": "Abdulaziz",
-      "email": "abdulazizheir@gmail.com"
-    },
-    {
-      "id": "fabdaf2c-9173-451c-a7c5-2f653c1efce9",
-      "name": "admin",
-      "email": "abdulazizrohmatulloh@gmail.com"
-    },
-    {
-      "id": "5eaa85e9-9466-4405-b2c4-5e87a39618b2",
-      "name": "]",
-      "email": "abdulazizheir@gmail.com"
+      "id": "f3c3c620-13a7-4e9d-91c7-fe89588996c5",
+      "name": "ucando",
+      "email": "ucandoanything@gmail.com"
     }
   ]
 }
