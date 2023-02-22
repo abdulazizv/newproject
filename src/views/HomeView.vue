@@ -14,6 +14,8 @@ import Input from '../ui/Input.vue';
 import UserView from './UserView.vue';
 import Button from '../ui/Button.vue';
 import {v4 as uuidv4 } from 'uuid'
+import axios from '../service/axios'
+import { toast } from 'vue3-toastify'
 export default {
   components:{
     Input,
@@ -34,6 +36,11 @@ export default {
         id:uuidv4(),
         name: this.name,
         email: this.email
+      }
+      if(newUser.name.length === 0 || newUser.email.length === 0) {
+        alert(`Please enter a new user name and email`)
+      } else {
+        axios.post('/user',newUser);
       }
       console.log(newUser)
     }
