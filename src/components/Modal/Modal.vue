@@ -24,7 +24,7 @@
                         <p class="mb-2 text-left ml-16">
                             Enter email <span class="text-red-600">*</span>
                         </p>
-                        <input type="email" :value="email" placeholder="enter email address"
+                        <input type="email" :value="email"  placeholder="enter email address"
                             class="form-control w-[80%] mx-auto p-3 rounded-md mb-4 focus:ring-4 focus:ring-sky-400 focus:outline-none border"
                             id="tel"  @input="$event=>isemail=$event.target.value"/>
                     </label>
@@ -68,16 +68,13 @@ export default {
         },
         editPost() {
             const newData = {
-                name: this.isname,
-                email: this.isemail
+                name: this.isname || this.username,
+                email: this.isemail || this.email
             }
 
             this.$emit('edit',newData);
         }
     },
-    mounted() {
-        this
-    }
 }
 </script>
 

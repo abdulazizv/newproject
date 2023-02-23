@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white pt-5 w-1/2 mx-auto min-h-[300px] shadow-lg px-10 container">
+    <div class="bg-white pt-5 w-1/2 mx-auto min-h-[300px] shadow-lg px-10 container" @edit="updatePost">
         <!-- modal  -->
         <Modal :isOpen="isOpen" @hide="hideModal" :username="username" :email="email"/>
         <!-- modal  -->
@@ -26,7 +26,7 @@
             <tbody class="w-full">
 
                 <ListItem v-if="!isLoading" v-for="(item, index) in userList" :key="item.id" :num="index" :item="item"
-                    :removeUser="removeUser" @open="isOpenTrue" @edit="updatePost" />
+                    :removeUser="removeUser" @open="isOpenTrue"  />
 
 
             </tbody>
