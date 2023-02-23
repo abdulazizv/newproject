@@ -1,10 +1,14 @@
 <template>
-    <div class="bg-white pt-5  w-1/2 mx-auto min-h-[300px] shadow-lg px-10 container">
+    <div class="bg-white pt-5 w-1/2 mx-auto min-h-[300px] shadow-lg px-10 container">
+        <!-- modal  -->
+        <Modal :isOpen="isOpen" @hide="hideModal" />
+        <!-- modal  -->
 
-        <h1 class="text-rgb(25, 235, 25)-700 text-center text-2xl uppercase font-semibold">User list</h1>
+        <h1 class="text-rgb(25, 235, 25)-700 text-center text-2xl uppercase font-semibold">
+            User list
+        </h1>
 
-        <table class="list  bg-rgb(25, 235, 25)-50 table-auto w-full border-separate border-spacing-2">
-
+        <table class="list bg-rgb(25, 235, 25)-50 table-auto w-full border-separate border-spacing-2">
             <thead class="p-5 bg-rgb(25, 235, 25)-300 rounded-xl w-full">
                 <tr>
                     <th>ID</th>
@@ -15,30 +19,33 @@
                 </tr>
             </thead>
 
-            <h1 class="text-center" v-if="!userList.length"> USER LIST EMPTY </h1>
+            <h1 class="text-center" v-if="!userList.length">USER LIST EMPTY</h1>
 
             <span class="loader" v-if="isLoading"></span>
 
             <tbody class="w-full">
+
                 <ListItem v-if="!isLoading" v-for="(item, index) in userList" :key="item.id" :num="index" :item="item"
-                    :removeUser="removeUser" />
+                    :removeUser="removeUser" @open="isOpenTrue" />
+
+
             </tbody>
-
-
         </table>
-
     </div>
 </template>
 <script>
 import axios from "@/service/axios";
-import ListItem from "../ui/ListItem.vue";
+import ListItem from "@/ui/ListItem.vue";
+import Modal from "@/components/Modal/Modal.vue";
 export default {
     name: "UserView",
-    components: { ListItem },
+    components: { ListItem, Modal },
     data() {
         return {
             userList: [],
             isLoading: true,
+            isOpen: false,
+            editId: "",
         };
     },
     methods: {
@@ -50,25 +57,40 @@ export default {
                     this.userList = user.data;
                     setTimeout(() => {
                         this.isLoading = false;
-                    }, 300)
+                    }, 300);
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 console.log(e);
             }
         },
         removeUser(id) {
-            axios.delete(`/user/${id}`, {})
+            axios.delete(`/user/${id}`, {});
             location.reload();
-        }
+        },
+        async isOpenTrue(id) {
+            this.isOpen = true;
+            this.editId = id;
+            try {
+                const postItem = await axios.get(`/user/${this.editId}`);
+                console.log(postItem.data)
+            } catch (e) {
+                console.log(e)
+            }
+        },
+        hideModal() {
+            this.isOpen = false;
+        },
     },
     mounted() {
         this.getAlluser();
     },
+    computed() {
+        this.getAlluser();
+    },
     updated() {
-        console.log("updated")
-    }
-}
+        console.log("updated");
+    },
+};
 </script>
 <style scoped>
 .loader {
@@ -82,7 +104,8 @@ export default {
         linear-gradient(rgb(25, 235, 25) 50px, transparent 0),
         linear-gradient(rgb(25, 235, 25) 50px, transparent 0),
         linear-gradient(rgb(25, 235, 25) 50px, transparent 0);
-    background-position: 0px center, 15px center, 30px center, 45px center, 60px center, 75px center, 90px center;
+    background-position: 0px center, 15px center, 30px center, 45px center,
+        60px center, 75px center, 90px center;
     animation: rikSpikeRoll 0.65s linear infinite alternate;
     display: block;
 }
@@ -91,22 +114,27 @@ export default {
         background-size: 10px 3px;
     }
     16% {
-        background-size: 10px 50px, 10px 3px, 10px 3px, 10px 3px, 10px 3px, 10px 3px
+        background-size: 10px 50px, 10px 3px, 10px 3px, 10px 3px, 10px 3px, 10px 3px;
     }
     33% {
-        background-size: 10px 30px, 10px 50px, 10px 3px, 10px 3px, 10px 3px, 10px 3px
+        background-size: 10px 30px, 10px 50px, 10px 3px, 10px 3px, 10px 3px,
+            10px 3px;
     }
     50% {
-        background-size: 10px 10px, 10px 30px, 10px 50px, 10px 3px, 10px 3px, 10px 3px
+        background-size: 10px 10px, 10px 30px, 10px 50px, 10px 3px, 10px 3px,
+            10px 3px;
     }
     66% {
-        background-size: 10px 3px, 10px 10px, 10px 30px, 10px 50px, 10px 3px, 10px 3px
+        background-size: 10px 3px, 10px 10px, 10px 30px, 10px 50px, 10px 3px,
+            10px 3px;
     }
     83% {
-        background-size: 10px 3px, 10px 3px, 10px 10px, 10px 30px, 10px 50px, 10px 3px
+        background-size: 10px 3px, 10px 3px, 10px 10px, 10px 30px, 10px 50px,
+            10px 3px;
     }
     100% {
-        background-size: 10px 3px, 10px 3px, 10px 3px, 10px 10px, 10px 30px, 10px 50px
+        background-size: 10px 3px, 10px 3px, 10px 3px, 10px 10px, 10px 30px,
+            10px 50px;
     }
 }
 </style>
