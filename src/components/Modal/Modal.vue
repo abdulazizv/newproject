@@ -10,23 +10,23 @@
             </div>
 
             <div class="modal-body bg-white min-h-[440px] flex justify-center items-center">
-                <form action="#" class="min-w-[80%] p-3 rounded-md text-center">
+                <form action="#" class="min-w-[80%] p-3 rounded-md text-center" @submit.prevent>
                     <label for="fullname" class="w-full">
                         <p class="mb-2 text-left ml-16 mt-2">
                             Enter fullname <span class="text-red-600">*</span>
                         </p>
-                        <input type="text"
+                        <input type="text" :value="username"
                             class="form-control w-[80%] mx-auto p-3 rounded-md mb-4 focus:ring-4 focus:ring-sky-400 focus:outline-none border"
-                            id="fullname1" placeholder="enter fullname" />
+                            id="fullname1" placeholder="enter fullname" @input="$event=>isname=$event.target.value"/>
                     </label>
 
                     <label for="tel">
                         <p class="mb-2 text-left ml-16">
                             Enter email <span class="text-red-600">*</span>
                         </p>
-                        <input type="email" placeholder="enter email address"
+                        <input type="email" :value="email" placeholder="enter email address"
                             class="form-control w-[80%] mx-auto p-3 rounded-md mb-4 focus:ring-4 focus:ring-sky-400 focus:outline-none border"
-                            id="tel" />
+                            id="tel"  @input="$event=>isemail=$event.target.value"/>
                     </label>
 
 
@@ -52,12 +52,31 @@
 export default {
     name: "Modal",
     props: {
-        isOpen: Boolean
+        isOpen: Boolean,
+        username:String,
+        email: String
+    },
+    data() {
+        return {
+            isname:"",
+            isemail:"",
+        }
     },
     methods: {
         hideModal() {
             this.$emit('hide')
+        },
+        editPost() {
+            const newData = {
+                name: this.isname,
+                email: this.isemail
+            }
+
+            this.$emit('edit',newData);
         }
+    },
+    mounted() {
+        this
     }
 }
 </script>

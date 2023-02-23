@@ -1,7 +1,7 @@
 <template>
     <div class="bg-white pt-5 w-1/2 mx-auto min-h-[300px] shadow-lg px-10 container">
         <!-- modal  -->
-        <Modal :isOpen="isOpen" @hide="hideModal" />
+        <Modal :isOpen="isOpen" @hide="hideModal" :username="username" :email="email"/>
         <!-- modal  -->
 
         <h1 class="text-rgb(25, 235, 25)-700 text-center text-2xl uppercase font-semibold">
@@ -26,7 +26,7 @@
             <tbody class="w-full">
 
                 <ListItem v-if="!isLoading" v-for="(item, index) in userList" :key="item.id" :num="index" :item="item"
-                    :removeUser="removeUser" @open="isOpenTrue" />
+                    :removeUser="removeUser" @open="isOpenTrue" @edit="updatePost" />
 
 
             </tbody>
@@ -46,6 +46,8 @@ export default {
             isLoading: true,
             isOpen: false,
             editId: "",
+            username:"",
+            email:""
         };
     },
     methods: {
@@ -72,7 +74,9 @@ export default {
             this.editId = id;
             try {
                 const postItem = await axios.get(`/user/${this.editId}`);
-                console.log(postItem.data)
+                const {name,email} = postItem.data
+                this.username = name;
+                this.email = email;
             } catch (e) {
                 console.log(e)
             }
@@ -80,6 +84,9 @@ export default {
         hideModal() {
             this.isOpen = false;
         },
+        updatePost(data) {
+            axios.put(`/user/${this.editId}`,data)
+        }
     },
     mounted() {
         this.getAlluser();
