@@ -37,6 +37,7 @@
 import axios from "@/service/axios";
 import ListItem from "@/ui/ListItem.vue";
 import Modal from "@/components/Modal/Modal.vue";
+import { toast } from "vue3-toastify";
 export default {
     name: "UserView",
     components: { ListItem, Modal },
@@ -67,7 +68,10 @@ export default {
         },
         removeUser(id) {
             axios.delete(`/user/${id}`, {});
-            location.reload();
+            toast.info("User removed")
+            setTimeout(() => {
+                location.reload();
+            },4000)
         },
         async isOpenTrue(id) {
             this.isOpen = true;
